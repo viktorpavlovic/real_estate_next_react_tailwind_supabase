@@ -5,9 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import { useUser, UserButton } from "@clerk/nextjs";
 
 export const Header: React.FC = () => {
   const path = usePathname();
+
+  const { isSignedIn } = useUser();
 
   return (
     <div className="p-6 px-10 flex justify-between shadow-sm fixed top-0 w-full z-10 bg-white">
@@ -31,12 +34,18 @@ export const Header: React.FC = () => {
           </li>
         </ul>
       </div>
-      <div className="hidden md:flex gap-2">
+      <div className="flex gap-2 items-center">
         <Button className="flex gap-2">
           <Plus className="h-5 w-5" />
           Post Your Ad
         </Button>
-        <Button variant="outline">Login</Button>
+        {isSignedIn ? (
+          <UserButton />
+        ) : (
+          <Link href={"/sign-in"}>
+            <Button variant="outline">Login</Button>{" "}
+          </Link>
+        )}
       </div>
     </div>
   );
