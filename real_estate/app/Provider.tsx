@@ -9,7 +9,7 @@ export const Provider: React.FC<ProviderProps> = ({ children }) => {
   return (
     <div>
       <Header />
-      {children}
+      <div className="mt-32">{children}</div>
     </div>
   );
 };
